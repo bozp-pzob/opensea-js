@@ -483,6 +483,8 @@ export class OpenSeaPort {
       {
         from: accountAddress,
         to: this._wrappedNFTLiquidationProxyAddress,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         value: amount,
         data: encodeCall(
           getMethod(WrappedNFTLiquidationProxy, "purchaseNFTs"),
@@ -593,6 +595,8 @@ export class OpenSeaPort {
       {
         from: accountAddress,
         to: token.address,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         value: amount,
         data: encodeCall(getMethod(CanonicalWETH, "deposit"), []),
       },
@@ -1170,7 +1174,7 @@ export class OpenSeaPort {
     accountAddress: string;
     recipientAddress?: string;
     referrerAddress?: string;
-  }): Promise<{ encoded: string, txnData: any}> {
+  }): Promise<{ encoded: string; txnData: any }> {
     const matchingOrder = this._makeMatchingOrder({
       order,
       accountAddress,
@@ -2320,6 +2324,8 @@ export class OpenSeaPort {
             metadata,
           ]
         )
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         .estimateGasAsync({ from: accountAddress, value });
     } catch (error) {
       if (retries <= 0) {
@@ -4191,21 +4197,21 @@ export class OpenSeaPort {
 
     // Then do the transaction
     const encoded = this._wyvernProtocol.wyvernExchange
-        .atomicMatch_(
-          args[0],
-          args[1],
-          args[2],
-          args[3],
-          args[4],
-          args[5],
-          args[6],
-          args[7],
-          args[8],
-          args[9],
-          args[10]
-        )
-        .getABIEncodedTransactionData(txnData);
-    
+      .atomicMatch_(
+        args[0],
+        args[1],
+        args[2],
+        args[3],
+        args[4],
+        args[5],
+        args[6],
+        args[7],
+        args[8],
+        args[9],
+        args[10]
+      )
+      .getABIEncodedTransactionData();
+
     return {
       encoded,
       txnData,
